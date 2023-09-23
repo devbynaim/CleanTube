@@ -1,12 +1,14 @@
 import {configureStore,combineReducers} from "@reduxjs/toolkit"
 import playlistsReducer from "../features/playlists/playlistSlice"
-import favoriteReudcer from "../features/favorites/favoriteSlice"
-import recentReducer from "../features/recents/recentSlice"
+import favoritesReudcer from "../features/favorites/favoriteSlice"
+import recentsReducer from "../features/recents/recentSlice"
+import notesReducer from "../features/notes/noteSlice"
 
 const combinedReducers = combineReducers({
     playlists:playlistsReducer,
-    favorites:favoriteReudcer,
-    recents:recentReducer
+    favorites:favoritesReudcer,
+    recents:recentsReducer,
+    notes:notesReducer
 })
 
 const store = configureStore({
