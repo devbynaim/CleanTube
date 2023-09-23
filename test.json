@@ -1,0 +1,62 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "oLjetDzpXC99_V-eCoF-Dx0lnH0",
+  "nextPageToken": "EAAaKVBUOkNBVWlFREV5UlVaQ00wSXhRelUzUkVVMFJURW9BVENOX05lY0Jn",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "1ODAQzep3Kix-L0Ub1QnikWm3Ss",
+      "id": "UExnZUVUVWFFRWRzNzVyd2ZDT0tQb05EX19FYVpBd2tTOC41NkI0NEY2RDEwNTU3Q0M2",
+      "snippet": {
+        "publishedAt": "2022-12-09T12:49:53Z",
+        "channelId": "UCCQZT1RuEQjwAOzXPFyA7LQ",
+        "title": "React: Software Architecture | Part 1",
+        "description": "Many React developers have intimate knowledge of the React API itself, but little familiarity with how to create real-world apps on a larger scale while dealing with various stakeholders. The heavy demands on web apps both from a customer and managerial perspective require that developers arrange software in an optimal way to ensure performance and maintainability. And in order to do this effectively, programmers must know how to create good software architecture. In this course, senior software developer Shaun Wassell shows you how, detailing what React developers need to know to keep their apps maintainable, performant, and compliant for the long haul. Delve into the basics of server-side rendering, state management, code splitting, and much more.\n\nTime Stamps:\n00:00  Learn software architecture with React\n00:29  What you should know\n01:21 What is a software architecture\n\n\n#redux #react #reactjs #basicreactproject #AdekNinie #CodingWithMrm #codingwithmrm #adekninie #serversiderendering #softwarearchitecture",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xC_M0InXs4w/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/xC_M0InXs4w/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/xC_M0InXs4w/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/xC_M0InXs4w/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/xC_M0InXs4w/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Coding With Mr.M",
+        "playlistId": "PLgeETUaEEds75rwfCOKPoND__EaZAwkS8",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "xC_M0InXs4w"
+        },
+        "videoOwnerChannelTitle": "Coding With Mr.M",
+        "videoOwnerChannelId": "UCCQZT1RuEQjwAOzXPFyA7LQ"
+      },
+      "contentDetails": {
+        "videoId": "xC_M0InXs4w",
+        "videoPublishedAt": "2022-12-12T03:30:09Z"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 7,
+    "resultsPerPage": 5
+  }
+}
