@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { addNote, deleteNote } from "./features/notes/noteSlice";
+import { addNote, deleteNote, updateNote } from "./features/notes/noteSlice";
 
 const App = () => {
   const [videoIId,setVideoIId] = useState("")
@@ -23,7 +23,8 @@ const App = () => {
   },[])
 
   const handelDelete = ()=>{
-    dispatch(deleteNote({videId:"1346", noteId:videoIId}))
+    // dispatch(deleteNote({videId:"1346", noteId:videoIId}))
+    dispatch(updateNote({videoId:"1346",noteId:videoIId,note:"updated note"}))
   }
   return (
     <div>App

@@ -15,7 +15,17 @@ const noteSlice = createSlice({
       state.notes[videId].push(myNote);
     },
 
-    updateNote: (state, { payload }) => {},
+    updateNote: (state, { payload: { videoId, noteId, note } }) => {
+      const videoNotes = state.notes[videoId];
+      if (videoNotes) {
+        const noteIndex = videoNotes.findIndex(
+          (noteObj) => noteObj.noteId === noteId
+        );
+        if (noteIndex !== -1) {
+          state.notes[videoId][noteIndex].note = note;
+        }
+      }
+    },
     deleteNote: (state, { payload: { videId, noteId } }) => {
       state.notes[videId] = state.notes[videId].filter(
         (note) => note.noteId != noteId
