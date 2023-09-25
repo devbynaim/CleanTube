@@ -14,7 +14,10 @@ const fatchPlaylists = async (playlistId, pageToken = "", data = []) => {
   }
   return data
 };
-
-const getPlaylists = async (playlistId)=>(formatYoutubeData( await fatchPlaylists(playlistId)))
-
+const getPlaylists = async (playlistId)=>{
+  const apiUrl = `https://www.googleapis.com/youtube/v3/playlists?key=${import.meta.env.VITE_APIKEY}&part=snippet&id=${playlistId}`;
+  const {data:{items}} = await axios(apiUrl)
+  const {title,thumbnails,description} = items[0].snippet
+  return (formatYoutubeData({title,description,thumbnail:thumbnails.medium}, await fatchPlaylists(playlistId)))
+}
 export default getPlaylists;

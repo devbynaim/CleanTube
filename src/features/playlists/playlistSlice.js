@@ -24,6 +24,15 @@ const playlistSlice = createSlice({
     deletePlaylist: (state, { payload }) => {
       delete state.data[payload.id];
     },
+    addToFavorite: (state, { payload }) => {
+      state.data[payload.id].isFavorite = true;
+    },
+    removeFromFavorite: (state, { payload }) => {
+      state.data[payload.id].isFavorite = false;
+    },
+    setRunningVideo: (state, { payload }) => {
+      state.data[payload.id] = payload.running;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addPlaylist.pending, (state) => {
@@ -41,5 +50,6 @@ const playlistSlice = createSlice({
   },
 });
 
-export const { deletePlaylist } = playlistSlice.actions;
+export const { deletePlaylist, addToFavorite, removeFromFavorite } =
+  playlistSlice.actions;
 export default playlistSlice.reducer;

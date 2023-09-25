@@ -1,14 +1,13 @@
-const formatYoutubeData = (data) => {
-  let instialLists;
+const formatYoutubeData = (instialLists,data) => {
   const items = data.map((item) => {
     const {
       contentDetails: { videoId },
       snippet,
     } = item;
     const {title,description,position,thumbnails} = snippet
-    if (!instialLists) {
+    if (!instialLists.channelId) {
       const { channelId, channelTitle, playlistId } = snippet;
-      instialLists = { channelId, channelTitle, playlistId, running: 1 };
+      instialLists = {...instialLists, channelId, channelTitle, playlistId, running: 1,isFavorite:false };
     }
     return {
         title,
