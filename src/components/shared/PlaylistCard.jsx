@@ -1,10 +1,124 @@
-const PlaylistCard = ({title,thumbnail}) => {
-  return (
-    <div>
-      <img src={thumbnail.url} alt=""/>
-      <h1>{title}</h1>
-    </div>
-  )
-}
+import styled from "styled-components";
+import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { addToFavorite, removeFromFavorite } from "../../features/playlist/playlistSlice";
 
-export default PlaylistCard
+const Card = styled.div`
+  width: 240px;
+  height: 340px;
+  background-color: var(--secondary-color);
+  margin: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+`;
+
+const Thumb = styled.img`
+  width: 100%;
+  height: fit-content;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  padding: 0 10px;
+`;
+
+const ChannelAndFevWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ChannelDiv = styled.div`
+  width: 130px;
+  height: 30px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ChannelLink = styled.a`
+  text-decoration: none;
+  color: black;
+  font-size: 13px;
+  &:hover {
+    color: var(--accent-color);
+  }
+`;
+
+const FavWraper = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  color: var(--accent-color);
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Title = styled.a`
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+`;
+
+const Description = styled.p`
+  font-size: 14px;
+  color: #1a1818;
+`;
+
+const PlaylistCard = ({
+  title,
+  thumbnail,
+  channelId,
+  channelTitle,
+  description,
+  isFavorite,playlistId
+}) => {
+  const dispatch = useDispatch()
+  const handelFavAction = () => {
+    if(isFavorite){
+      dispatch(removeFromFavorite({id:playlistId}))
+      return
+    }
+    dispatch(addToFavorite({id:playlistId}))
+  };
+  return (
+    <Card>
+      <Thumb src={thumbnail.url} />
+      <ContentWrapper>
+        <ChannelAndFevWrapper>
+          <ChannelDiv>
+            <ChannelLink
+              href={`https://www.youtube.com/channel/${channelId}`}
+              target="_blank"
+            >
+              {channelTitle}
+            </ChannelLink>
+          </ChannelDiv>
+          <FavWraper>
+            {isFavorite ? (
+              <MdFavorite onClick={handelFavAction} />
+            ) : (
+              <MdOutlineFavoriteBorder onClick={handelFavAction} />
+            )}
+          </FavWraper>
+        </ChannelAndFevWrapper>
+        <Title href="#">{title}</Title>
+        <Description>
+          {/* 
+          160 charecter
+           */}
+          {`${description.substring(0, 160)}..........`}
+        </Description>
+      </ContentWrapper>
+    </Card>
+  );
+};
+
+export default PlaylistCard;

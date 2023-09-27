@@ -34,6 +34,9 @@ const AddPlayLIstBtn = styled.button`
   height: 37px;
   background-color: var(--accent-color);
   color: var(--btn-txt-color);
+  &:hover{
+    cursor: pointer;
+  }
   @media screen and (max-width: 375px) {
     width: 90px;
     height: 33px;

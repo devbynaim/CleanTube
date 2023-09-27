@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-const usePlaylists = () => {
+const usePlaylist = () => {
   const state = useSelector((state) => state.playlists);
   const recentPlaylists = useSelector((state) => state.recents.items);
   const playlists = getAllPlaylists();
@@ -39,9 +39,8 @@ const usePlaylists = () => {
       recentPlaylists.includes(list.playlistId)
     );
   }
-  console.log(state)
 
   return {playlists,favorites,recents}
 };
 
-export default usePlaylists;
+export default usePlaylist;
