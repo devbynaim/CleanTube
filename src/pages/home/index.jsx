@@ -20,7 +20,7 @@ const Home = () => {
           ({ title, channelId, channelTitle, thumbnail, description,playlistId,isFavorite }) => {
             return (
               <PlaylistCard
-                key={channelId}
+                key={playlistId}
                 channelId={channelId}
                 channelTitle={channelTitle}
                 description={description}
@@ -28,6 +28,7 @@ const Home = () => {
                 thumbnail={thumbnail}
                 playlistId= {playlistId}
                 isFavorite={isFavorite}
+                all={true}
               />
             );
           }

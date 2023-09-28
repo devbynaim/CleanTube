@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { logoImg } from "../assets/index";
-const Headersection = styled.header`
+import Modal from "./shared/Modal";
+import useModal from "../hooks/useModal";
+
+const HeaderWrapper = styled.header`
   background-color: var(--secondary-color);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 `;
-const MenuWrapper = styled.div`
+
+const MenuContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,7 +16,7 @@ const MenuWrapper = styled.div`
   height: 58px;
 `;
 
-const LogoWrapper = styled.div`
+const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -20,7 +24,7 @@ const LogoWrapper = styled.div`
   font-family: Roboto;
 `;
 
-const Logo = styled.img`
+const LogoImage = styled.img`
   height: 40px;
   width: 40px;
   @media screen and (max-width: 375px) {
@@ -29,12 +33,13 @@ const Logo = styled.img`
     font-size: 18px;
   }
 `;
-const AddPlayLIstBtn = styled.button`
+
+const AddPlaylistButton = styled.button`
   width: 100px;
   height: 37px;
   background-color: var(--accent-color);
   color: var(--btn-txt-color);
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
   @media screen and (max-width: 375px) {
@@ -44,18 +49,20 @@ const AddPlayLIstBtn = styled.button`
 `;
 
 const Header = () => {
+  const {isModalOpen,openModal,closeModal} = useModal()
   return (
-    <Headersection>
+    <HeaderWrapper>
+     {isModalOpen&& <Modal closeModal={closeModal}/>}
       <div className="container">
-        <MenuWrapper>
-          <LogoWrapper>
-            <Logo src={logoImg} />
+        <MenuContainer>
+          <LogoContainer>
+            <LogoImage src={logoImg} alt="cleanTube Logo" />
             <span>cleanTube</span>
-          </LogoWrapper>
-          <AddPlayLIstBtn>Add Playlist</AddPlayLIstBtn>
-        </MenuWrapper>
+          </LogoContainer>
+          <AddPlaylistButton onClick={openModal}>Add Playlist</AddPlaylistButton>
+        </MenuContainer>
       </div>
-    </Headersection>
+    </HeaderWrapper>
   );
 };
 
