@@ -5,6 +5,7 @@ import PlaylistCard from "../../components/shared/PlaylistCard";
 import { useDispatch } from "react-redux";
 import { addPlaylist } from "../../features/playlist/playlistSlice";
 import usePlaylist from "../../hooks/usePlaylist";
+import Recent from "../../components/recent";
 const Home = () => {
   const { playlists } = usePlaylist();
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <main>
+      <Recent/>
+      <main style={{display:"flex", gap:"10px",margin:'20px auto'}} className="container">
         {playlists.map(
           ({ title, channelId, channelTitle, thumbnail, description,playlistId,isFavorite }) => {
             return (
