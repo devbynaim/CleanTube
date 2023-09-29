@@ -15,6 +15,7 @@ const Card = styled.div`
   margin: 10px;
   overflow: hidden;
   border-radius: 10px;
+  box-shadow: 0px 0px 3px rgba(255, 0, 0, 0.3);
 `;
 
 const Thumb = styled.img`
@@ -107,7 +108,7 @@ const PlaylistCard = ({
   return (
     <Card>
     <Thumb
-      src={thumbnail.url}
+      src={thumbnail.medium.url}
       onClick={handelPlayer}
     />
     <ContentWrapper>
@@ -140,9 +141,7 @@ const PlaylistCard = ({
               title.length > 50 ? ".........." : ''
             }` }</Title>
       <Description onClick={handelPlayer}>
-        {`${description.substring(0, 100)} ${
-              description.length > 100 ? "........................" : ''
-            }`}
+        {`${description.substring(0, 100)} ................................`}
       </Description>
     </ContentWrapper>
   </Card>

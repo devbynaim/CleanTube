@@ -7,7 +7,8 @@ import { addPlaylist } from "../../features/playlist/playlistSlice";
 import usePlaylist from "../../hooks/usePlaylist";
 import Recent from "../../components/recent";
 const Home = () => {
-  const { playlists } = usePlaylist();
+  const { playlists,recents,favorites } = usePlaylist();
+  const recent = favorites[0]
   const dispatch = useDispatch();
   console.log("playlist", playlists);
   useEffect(() => {
@@ -16,7 +17,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <Recent/>
+      {recent&&<Recent channelId={recent.channelId} channelTitle={recent.channelTitle} description={recent.description} title={recent.title} thumbnail={recent.thumbnail}/>}
       <main style={{display:"flex", gap:"10px",margin:'20px auto'}} className="container">
         {playlists.map(
           ({ title, channelId, channelTitle, thumbnail, description,playlistId,isFavorite }) => {
