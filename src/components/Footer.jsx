@@ -3,6 +3,7 @@ import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 const FooterRoot = styled.footer`
   background-color: var(--secondary-color);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin-top: auto;
 `;
 
 const FooterWrapper = styled.div`

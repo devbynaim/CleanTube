@@ -8,7 +8,15 @@ import usePlaylist from "../../hooks/usePlaylist";
 import Recent from "../../components/recent";
 import styled from "styled-components";
 
-const Main = styled.main``;
+const HomeWrapper = styled.div`
+      flex-direction: column;
+    display: flex;
+    height: 100vh;
+`
+
+const Main = styled.main`
+  /* min-height:72vh; */
+`;
 const MainContainer = styled.div``;
 const ToggleBar = styled.div`
   width: 100%;
@@ -59,9 +67,14 @@ const Home = () => {
   console.log("playlist", playlists);
   useEffect(() => {
     dispatch(addPlaylist({ id: "PL_XxuZqN0xVD911duktCZ3FXJfz9k8AwW" }));
+    dispatch(addPlaylist({ id: "PL_XxuZqN0xVDgr7KreI5PaVZuG8Sx3L2c" }));
+    dispatch(addPlaylist({ id: "PL_XxuZqN0xVBfji5SwKd-CQijtdmcUTMU" }));
+    dispatch(addPlaylist({ id: "PL9RcWoqXmzaKWxaNoDhW4O1kA0hK9AYys" }));
+    dispatch(addPlaylist({ id: "PL_XxuZqN0xVD0op-QDEgyXFA4fRPChvkl" }));
+    dispatch(addPlaylist({ id: "PL_XxuZqN0xVDIlzHwTJr7IqIW1A2eECwy" }));
   }, []);
   return (
-    <div>
+    <HomeWrapper>
       <Header />
       <Main>
         <MainContainer className="container">
@@ -160,7 +173,7 @@ const Home = () => {
         </MainContainer>
       </Main>
       <Footer />
-    </div>
+    </HomeWrapper>
   );
 };
 
