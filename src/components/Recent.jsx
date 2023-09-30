@@ -3,25 +3,29 @@ import { FaPlay } from "react-icons/fa";
 
 const RecentCard = styled.div`
   width: 100%;
-  height: 200px;
+  height: 245px;
   background-color: var(--secondary-color);
-  margin: 15px 0;
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
   overflow: hidden;
   box-shadow: 0px 0px 3px rgba(255, 0, 0, 0.3);
-  @media screen and (max-width: 908px) {
-    height: 146px;
-  }
 `;
 const RecentCardLeft = styled.div`
   width: 100%;
   height: auto;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
 `;
 
 const RecentThumb = styled.img`
-  width: 100%;
+  width: 513px;
   height: fit-content;
+  cursor: pointer;
+  position: absolute;
+  top: -50px;
 `;
 const RecentCardRight = styled.div`
   width: 100%;
@@ -49,14 +53,13 @@ const Title = styled.a`
 
 const Description = styled.p`
   font-size: 14px;
-    color: #1a1818;
-    cursor: pointer;
-    height: 84px;
-    overflow: hidden;
-    @media screen and (max-width: 908px) {
-    height: 50px;
+  color: #1a1818;
+  cursor: pointer;
+  height: 121px;
+  overflow: hidden;
+  @media screen and (max-width: 440px) {
+    height: 104px;
   }
-
 `;
 
 const ChannelDiv = styled.div`
@@ -69,9 +72,6 @@ const ChannelDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: 908px) {
-    height: 25px;
-  }
 `;
 
 const ChannelLink = styled.a`
@@ -84,18 +84,14 @@ const ChannelLink = styled.a`
 `;
 
 const ChannelAndFevWrapper = styled.div`
-  width: 180px;
+  width: 145px;
   background-color: var(--accent-color);
   padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  gap: 12px;
-  @media screen and (max-width: 908px) {
-    width: 180px;
-    padding: 4px;
-  }
+  gap: 6px;
 `;
 
 const Recent = ({
@@ -106,41 +102,43 @@ const Recent = ({
   description,
   playlistId,
 }) => {
+  const handelPlayer = () => {
+    console.log("Go Player page");
+  };
   return (
-    <div className="container">
-      <RecentCard>
-        <RecentCardLeft>
-          <RecentThumb src={thumbnail.medium.url} />
-        </RecentCardLeft>
-        <RecentCardRight>
-          <RightSideContainer>
-            <div>
-            <Title href="#">{`${title.substring(0, 35)} ${
-              title.length > 50 ? ".........." : ''
-            }` }</Title>
-              <Description>
-                {`${description.substring(0, 500)} ${
-                  !description.length ? "........................" : ""
-                }`}
-              </Description>
-            </div>
-            <ChannelAndFevWrapper>
-              <ChannelDiv>
-                <ChannelLink
-                  href={`https://www.youtube.com/channel/${channelId}`}
-                  target="_blank"
-                >
-                  {`${channelTitle.substring(0, 17)} ${
-                    channelTitle.length > 17 ? "....." : ""
-                  }`}{" "}
-                </ChannelLink>
-              </ChannelDiv>
-              <FaPlay style={{ color: "white" }} />
-            </ChannelAndFevWrapper>
-          </RightSideContainer>
-        </RecentCardRight>
-      </RecentCard>
-    </div>
+    <RecentCard>
+      <RecentCardLeft>
+        <RecentThumb src={thumbnail.high.url} onClick={handelPlayer} />
+      </RecentCardLeft>
+      <RecentCardRight>
+        <RightSideContainer>
+          <div style={{ height: "10%" }}>
+            <Title href="#" onClick={handelPlayer}>{`${title.substring(
+              0,
+              35
+            )} ${title.length > 50 ? ".........." : ""}`}</Title>
+            <Description onClick={handelPlayer}>
+              {`${description.substring(0, 500)} ${
+                !description.length ? "........................" : ""
+              }`}
+            </Description>
+          </div>
+          <ChannelAndFevWrapper>
+            <ChannelDiv>
+              <ChannelLink
+                href={`https://www.youtube.com/channel/${channelId}`}
+                target="_blank"
+              >
+                {`${channelTitle.substring(0, 17)} ${
+                  channelTitle.length > 17 ? "....." : ""
+                }`}{" "}
+              </ChannelLink>
+            </ChannelDiv>
+            <FaPlay style={{ color: "white" }} />
+          </ChannelAndFevWrapper>
+        </RightSideContainer>
+      </RecentCardRight>
+    </RecentCard>
   );
 };
 

@@ -9,10 +9,9 @@ import {
 } from "../../features/playlist/playlistSlice";
 
 const Card = styled.div`
-  width: 240px;
+  min-width: 165px;
   height: 340px;
   background-color: var(--secondary-color);
-  margin: 10px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0px 0px 3px rgba(255, 0, 0, 0.3);
@@ -22,6 +21,7 @@ const Thumb = styled.img`
   width: 100%;
   height: fit-content;
   cursor:pointer;
+  
 `;
 
 const ContentWrapper = styled.div`

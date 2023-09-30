@@ -41,9 +41,20 @@ ul,li{
     padding: 10px;
 }
 
-.container{
-    width: 80%;
-    margin: auto;
-    /* background-color: #d82e2e; */
+.active-btn{
+    background-color: #23538F !important;
+    color: white;
 }
 
+.container{
+    width: 76%;
+    margin: auto;
+    /* background-color: #d82e2e; */
+    max-width: 1030px;
+}
+
+@media screen and (max-width: 700px) {
+    .container{
+        width: 96%;
+    }
+  }
