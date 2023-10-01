@@ -130,8 +130,8 @@ const Recent = ({
                 href={`https://www.youtube.com/channel/${channelId}`}
                 target="_blank"
               >
-                {`${channelTitle.substring(0, 17)} ${
-                  channelTitle.length > 17 ? "....." : ""
+                {`${channelTitle.substring(0, 15)} ${
+                  channelTitle.length > 15 ? "...." : ""
                 }`}{" "}
               </ChannelLink>
             </ChannelDiv>

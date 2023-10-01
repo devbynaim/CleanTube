@@ -77,22 +77,13 @@ const Modal = ({ closeModal }) => {
   const { error, loading } = useSelector((state) => state.playlists);
   const dispatch = useDispatch();
   const [url, setUrl] = useState("");
-  const [err, setErr] = useState({});
-  const [initialized, setInitialized] = useState(false);
-  useEffect(() => {
-    if (!loading) {
-      setErr({ message: error.message });
-    }
-  }, [loading]);
+  const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
-    if (initialized) {
-      !err && closeModal();
-      console.log(err);
-    } else {
-      setInitialized(true);
+    if (!error.message && !loading && submit) {
+      closeModal();
     }
-  }, [err]);
+  }, [error, loading]);
 
   const handleInputUrl = (e) => {
     setUrl(e.target.value);
@@ -104,6 +95,7 @@ const Modal = ({ closeModal }) => {
       listId = new URL(url).searchParams.get("list");
     } catch (e) {}
     dispatch(addPlaylist({ id: listId }));
+    setSubmit(true);
   };
 
   return (
@@ -118,15 +110,15 @@ const Modal = ({ closeModal }) => {
           </CloseButtonWrapper>
           <ModalContainer>
             <PlaylistInput
-              err={err.message}
+              err={error.message}
               placeholder="Enter Playlist URL Or ID"
               value={url}
               onChange={handleInputUrl}
             />
 
-            {err.message && (
+            {error.message && (
               <ErrorLebel>{`${
-                err.message == "exist"
+                error.message == "exist"
                   ? "playlist already exist"
                   : "Invalid url or playlist id"
               }`}</ErrorLebel>

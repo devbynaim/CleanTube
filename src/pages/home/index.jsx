@@ -7,6 +7,7 @@ import { addPlaylist } from "../../features/playlist/playlistSlice";
 import usePlaylist from "../../hooks/usePlaylist";
 import Recent from "../../components/recent";
 import styled from "styled-components";
+import HomeSkeleton from "./HomeSkeleton";
 
 const HomeWrapper = styled.div`
   flex-direction: column;
@@ -56,8 +57,11 @@ const Label = styled.label`
   margin-top: 15px;
 `;
 
+
+const dummySkeleton = new Array(7).fill("skeleton")
+
 const Home = () => {
-  const { playlists, recents, favorites } = usePlaylist();
+  const { playlists, recents, favorites, loading } = usePlaylist();
   const [isFavorite, setIsFavorite] = useState(false);
   const recent = recents[0];
   const dispatch = useDispatch();
@@ -69,13 +73,12 @@ const Home = () => {
     dispatch(addPlaylist({ id: "PL_XxuZqN0xVDgr7KreI5PaVZuG8Sx3L2c" }));
     dispatch(addPlaylist({ id: "PL_XxuZqN0xVBfji5SwKd-CQijtdmcUTMU" }));
     dispatch(addPlaylist({ id: "PL9RcWoqXmzaKWxaNoDhW4O1kA0hK9AYys" }));
-    dispatch(addPlaylist({ id: "PL_XxuZqN0xVD0op-QDEgyXFA4fRPChvkl" }));
-    dispatch(addPlaylist({ id: "PL_XxuZqN0xVDIlzHwTJr7IqIW1A2eECwy" }));
   }, []);
   return (
     <HomeWrapper>
       <Header />
       <Main>
+        
         <MainContainer className="container">
           {recent ? (
             <Recent
@@ -103,6 +106,7 @@ const Home = () => {
               Favorites
             </Btn>
           </ToggleBar>
+        
           {isFavorite && (
             <PlaylistConatiner>
               {favorites.length ? (
@@ -136,7 +140,7 @@ const Home = () => {
               )}
             </PlaylistConatiner>
           )}
-          {!isFavorite && (
+          {!loading?!isFavorite && (
             <PlaylistConatiner>
               {playlists.length ? (
                 playlists.map(
@@ -168,7 +172,9 @@ const Home = () => {
                 <Label>No playlists found</Label>
               )}
             </PlaylistConatiner>
-          )}
+          ):  <PlaylistConatiner>
+          {dummySkeleton.map(()=><HomeSkeleton/>)}
+          </PlaylistConatiner>}
         </MainContainer>
       </Main>
       <Footer />
