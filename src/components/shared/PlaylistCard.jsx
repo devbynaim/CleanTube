@@ -7,6 +7,7 @@ import {
   deletePlaylist,
   removeFromFavorite,
 } from "../../features/playlist/playlistSlice";
+import { addToRecent } from "../../features/recents/recentSlice";
 
 const Card = styled.div`
   min-width: 165px;
@@ -102,7 +103,7 @@ const PlaylistCard = ({
     dispatch(deletePlaylist({ id: playlistId }));
   };
   const handelPlayer = () => {
-    console.log("Go Player page");
+    dispatch(addToRecent({id:playlistId}))
   };
 
   return (

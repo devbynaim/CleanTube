@@ -101,6 +101,7 @@ const Recent = ({
   channelTitle,
   description,
   playlistId,
+  
 }) => {
   const handelPlayer = () => {
     console.log("Go Player page");

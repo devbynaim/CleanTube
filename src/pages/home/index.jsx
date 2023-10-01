@@ -9,10 +9,10 @@ import Recent from "../../components/recent";
 import styled from "styled-components";
 
 const HomeWrapper = styled.div`
-      flex-direction: column;
-    display: flex;
-    height: 100vh;
-`
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
+`;
 
 const Main = styled.main`
   /* min-height:72vh; */
@@ -44,10 +44,10 @@ const PlaylistConatiner = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 240px));
   gap: 20px;
   @media screen and (max-width: 538px) {
-    grid-template-columns: 1fr 1fr
+    grid-template-columns: 1fr 1fr;
   }
   @media screen and (max-width: 380px) {
-    grid-template-columns: 1fr
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -59,12 +59,11 @@ const Label = styled.label`
 const Home = () => {
   const { playlists, recents, favorites } = usePlaylist();
   const [isFavorite, setIsFavorite] = useState(false);
-  const recent = favorites[0];
+  const recent = recents[0];
   const dispatch = useDispatch();
   const handelToggle = (isFev) => {
     setIsFavorite(isFev);
   };
-  console.log("playlist", playlists);
   useEffect(() => {
     dispatch(addPlaylist({ id: "PL_XxuZqN0xVD911duktCZ3FXJfz9k8AwW" }));
     dispatch(addPlaylist({ id: "PL_XxuZqN0xVDgr7KreI5PaVZuG8Sx3L2c" }));

@@ -12,7 +12,6 @@ const fatchPlaylists = async (playlistId, pageToken = "", data = []) => {
   if (nextPageToken) {
     data = fatchPlaylists(playlistId, nextPageToken, data);
   }
-  console.log(data);
   return data
 };
 const getPlaylists = async (playlistId)=>{

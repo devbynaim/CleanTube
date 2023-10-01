@@ -4,6 +4,7 @@ const usePlaylist = () => {
   const state = useSelector((state) => state.playlists);
   const recentPlaylists = useSelector((state) => state.recents.items);
   const playlists = getAllPlaylists();
+  const {error,loading} = state
   function getAllPlaylists() {
     const playlists = Object.values(state.data).map((list) => {
       const {
@@ -35,12 +36,12 @@ const usePlaylist = () => {
   }
 
   function getRecentPlaylist() {
-    return playlists.filter((list) =>
-      recentPlaylists.includes(list.playlistId)
-    );
+    return recentPlaylists.map(id=>{
+      return state.data[id]
+    })
   }
 
-  return {playlists,favorites,recents}
+  return {playlists,favorites,recents,error,loading}
 };
 
 export default usePlaylist;

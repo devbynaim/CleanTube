@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { IoMdCloseCircle } from "react-icons/io";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addPlaylist } from "../../features/playlist/playlistSlice";
+import { StyleSheetManager } from "styled-components";
 
 const DimOverlay = styled.div`
   position: absolute;
@@ -39,7 +40,7 @@ const PlaylistInput = styled.input`
   width: 100%;
   height: 44px;
   outline: none;
-  border: none;
+  border: ${(props) => (props.err ? "1px solid red" : "none")};
   padding: 0px 15px;
   font-size: 14px;
   border-radius: 8px;
@@ -67,32 +68,76 @@ const CloseButtonWrapper = styled.div`
   font-size: 20px;
 `;
 
-const Modal = ({closeModal}) => {
-    const dispatch = useDispatch()
-    const [url, setUrl] = useState("")
-    
-    const handleInputUrl = (e) => {
-        setUrl(e.target.value)
+const ErrorLebel = styled.label`
+  font-size: 13px;
+  color: red;
+`;
+
+const Modal = ({ closeModal }) => {
+  const { error, loading } = useSelector((state) => state.playlists);
+  const dispatch = useDispatch();
+  const [url, setUrl] = useState("");
+  const [err, setErr] = useState({});
+  const [initialized, setInitialized] = useState(false);
+  useEffect(() => {
+    if (!loading) {
+      setErr({ message: error.message });
     }
-    
-    const handleAddPlaylist = () => {
-        dispatch(addPlaylist({ id: url }))
-        closeModal()
+  }, [loading]);
+
+  useEffect(() => {
+    if (initialized) {
+      !err && closeModal();
+      console.log(err);
+    } else {
+      setInitialized(true);
     }
-    
+  }, [err]);
+
+  const handleInputUrl = (e) => {
+    setUrl(e.target.value);
+  };
+
+  const handleAddPlaylist = () => {
+    let listId;
+    try {
+      listId = new URL(url).searchParams.get("list");
+    } catch (e) {}
+    dispatch(addPlaylist({ id: listId }));
+  };
+
   return (
-    <DimOverlay>
-      <ModalWrapper>
-        <CloseButtonWrapper>
-          <IoMdCloseCircle style={{ cursor: "pointer" }} onClick={closeModal}/>
-        </CloseButtonWrapper>
-        <ModalContainer>
-          <PlaylistInput placeholder="Enter Playlist URL Or ID" value={url} onChange={handleInputUrl} />
-          
-          <AddPlaylistButton onClick={handleAddPlaylist}>Add</AddPlaylistButton>
-        </ModalContainer>
-      </ModalWrapper>
-    </DimOverlay>
+    <StyleSheetManager shouldForwardProp={(prop) => prop !== "err"}>
+      <DimOverlay>
+        <ModalWrapper>
+          <CloseButtonWrapper>
+            <IoMdCloseCircle
+              style={{ cursor: "pointer" }}
+              onClick={closeModal}
+            />
+          </CloseButtonWrapper>
+          <ModalContainer>
+            <PlaylistInput
+              err={err.message}
+              placeholder="Enter Playlist URL Or ID"
+              value={url}
+              onChange={handleInputUrl}
+            />
+
+            {err.message && (
+              <ErrorLebel>{`${
+                err.message == "exist"
+                  ? "playlist already exist"
+                  : "Invalid url or playlist id"
+              }`}</ErrorLebel>
+            )}
+            <AddPlaylistButton onClick={handleAddPlaylist}>
+              Add
+            </AddPlaylistButton>
+          </ModalContainer>
+        </ModalWrapper>
+      </DimOverlay>
+    </StyleSheetManager>
   );
 };
 

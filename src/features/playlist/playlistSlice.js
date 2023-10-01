@@ -11,7 +11,7 @@ export const addPlaylist = createAsyncThunk(
   "playlists/playlist",
   async (action, { getState }) => {
     if (getState().playlists.data[action.id]) {
-      return Promise.reject(new Error("playlist already exist"));
+      return Promise.reject(new Error("exist"));
     }
     return await getPlaylists(action.id);
   }
