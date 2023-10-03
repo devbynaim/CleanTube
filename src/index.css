@@ -33,6 +33,14 @@ ul,li{
     margin: 0;
     padding: 0;
 }
+a{
+    text-decoration: none;
+}
+
+iframe{
+    height: 28vw;
+    width: 100%;
+}
 
 .active{
     background-color: tomato;
