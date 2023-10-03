@@ -7,7 +7,7 @@ const formatYoutubeData = (instialLists,data) => {
     const {title,description,position,thumbnails} = snippet
     if (!instialLists.channelId) {
       const { channelId, channelTitle, playlistId } = snippet;
-      instialLists = {...instialLists, channelId, channelTitle, playlistId, running: 1,isFavorite:false };
+      instialLists = {...instialLists, channelId, channelTitle, playlistId, running: 0,isFavorite:false };
     }
     return {
         title,

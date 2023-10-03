@@ -8,6 +8,8 @@ import usePlaylist from "../../hooks/usePlaylist";
 import Recent from "../../components/recent";
 import styled from "styled-components";
 import HomeSkeleton from "./HomeSkeleton";
+import shortid from "shortid";
+
 
 const HomeWrapper = styled.div`
   flex-direction: column;
@@ -119,6 +121,7 @@ const Home = () => {
                     description,
                     playlistId,
                     isFavorite,
+                    running
                   }) => {
                     return (
                       <PlaylistCard
@@ -131,6 +134,7 @@ const Home = () => {
                         playlistId={playlistId}
                         isFavorite={isFavorite}
                         all={true}
+                        running={running}
                       />
                     );
                   }
@@ -152,6 +156,7 @@ const Home = () => {
                     description,
                     playlistId,
                     isFavorite,
+                    running
                   }) => {
                     return (
                       <PlaylistCard
@@ -164,6 +169,7 @@ const Home = () => {
                         playlistId={playlistId}
                         isFavorite={isFavorite}
                         all={true}
+                        running={running}
                       />
                     );
                   }
@@ -173,7 +179,7 @@ const Home = () => {
               )}
             </PlaylistConatiner>
           ):  <PlaylistConatiner>
-          {dummySkeleton.map(()=><HomeSkeleton/>)}
+          {dummySkeleton.map(()=><HomeSkeleton key={shortid.generate()} />)}
           </PlaylistConatiner>}
         </MainContainer>
       </Main>

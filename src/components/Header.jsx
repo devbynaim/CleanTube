@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { logoImg } from "../assets/index";
 import Modal from "./shared/Modal";
 import useModal from "../hooks/useModal";
-
+import { Link } from "react-router-dom";
 const HeaderWrapper = styled.header`
   background-color: var(--secondary-color);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -49,17 +49,21 @@ const AddPlaylistButton = styled.button`
 `;
 
 const Header = () => {
-  const {isModalOpen,openModal,closeModal} = useModal()
+  const { isModalOpen, openModal, closeModal } = useModal();
   return (
     <HeaderWrapper>
-     {isModalOpen&& <Modal closeModal={closeModal}/>}
+      {isModalOpen && <Modal closeModal={closeModal} />}
       <div className="container">
         <MenuContainer>
-          <LogoContainer>
-            <LogoImage src={logoImg} alt="cleanTube Logo" />
-            <span>cleanTube</span>
-          </LogoContainer>
-          <AddPlaylistButton onClick={openModal}>Add Playlist</AddPlaylistButton>
+          <Link to={"/"}>
+            <LogoContainer>
+              <LogoImage src={logoImg} alt="cleanTube Logo" />
+              <span>cleanTube</span>
+            </LogoContainer>
+          </Link>
+          <AddPlaylistButton onClick={openModal}>
+            Add Playlist
+          </AddPlaylistButton>
         </MenuContainer>
       </div>
     </HeaderWrapper>

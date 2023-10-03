@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
+import {useNavigate } from "react-router-dom"
 import {
   addToFavorite,
   deletePlaylist,
@@ -21,8 +22,7 @@ const Card = styled.div`
 const Thumb = styled.img`
   width: 100%;
   height: fit-content;
-  cursor:pointer;
-  
+  cursor: pointer;
 `;
 
 const ContentWrapper = styled.div`
@@ -73,7 +73,7 @@ const Title = styled.a`
   text-decoration: none;
   color: black;
   font-weight: bold;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const Description = styled.p`
@@ -88,10 +88,13 @@ const PlaylistCard = ({
   channelId,
   channelTitle,
   description,
-  isFavorite,playlistId,
-  all
+  isFavorite,
+  playlistId,
+  all,
+  running
 }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const handelFavAction = () => {
     if (isFavorite) {
       dispatch(removeFromFavorite({ id: playlistId }));
@@ -103,49 +106,47 @@ const PlaylistCard = ({
     dispatch(deletePlaylist({ id: playlistId }));
   };
   const handelPlayer = () => {
+    navigate(`player?list=${playlistId}&running=${running}`)
     dispatch(addToRecent({id:playlistId}))
   };
 
   return (
     <Card>
-    <Thumb
-      src={thumbnail.medium.url}
-      onClick={handelPlayer}
-    />
-    <ContentWrapper>
-      <ChannelAndFevWrapper>
-        <ChannelDiv>
-          <ChannelLink
-            href={`https://www.youtube.com/channel/${channelId}`}
-            target="_blank"
-          >
-            {`${channelTitle.substring(0, 17) } ${
-              channelTitle.length > 17 ? "....." : ""
-            }`}
-          </ChannelLink>
-        </ChannelDiv>
-        <FavWraper>
-          {isFavorite ? (
-            <MdFavorite onClick={handelFavAction} />
-          ) : (
-            <MdOutlineFavoriteBorder onClick={handelFavAction} />
-          )}
-          {all && (
-            <AiOutlineDelete
-              style={{ color: "black" }}
-              onClick={handelDelete}
-            />
-          )}
-        </FavWraper>
-      </ChannelAndFevWrapper >
-      <Title href="#" onClick={handelPlayer}>{`${title.substring(0, 50)} ${
-              title.length > 50 ? ".........." : ''
-            }` }</Title>
-      <Description onClick={handelPlayer}>
-        {`${description.substring(0, 100)} ................................`}
-      </Description>
-    </ContentWrapper>
-  </Card>
+      <Thumb src={thumbnail.medium.url} onClick={handelPlayer} />
+      <ContentWrapper>
+        <ChannelAndFevWrapper>
+          <ChannelDiv>
+            <ChannelLink
+              href={`https://www.youtube.com/channel/${channelId}`}
+              target="_blank"
+            >
+              {`${channelTitle.substring(0, 17)} ${
+                channelTitle.length > 17 ? "....." : ""
+              }`}
+            </ChannelLink>
+          </ChannelDiv>
+          <FavWraper>
+            {isFavorite ? (
+              <MdFavorite onClick={handelFavAction} />
+            ) : (
+              <MdOutlineFavoriteBorder onClick={handelFavAction} />
+            )}
+            {all && (
+              <AiOutlineDelete
+                style={{ color: "black" }}
+                onClick={handelDelete}
+              />
+            )}
+          </FavWraper>
+        </ChannelAndFevWrapper>
+        <Title href="#" onClick={handelPlayer}>{`${title.substring(0, 50)} ${
+          title.length > 50 ? ".........." : ""
+        }`}</Title>
+        <Description onClick={handelPlayer}>
+          {`${description.substring(0, 100)} ................................`}
+        </Description>
+      </ContentWrapper>
+    </Card>
   );
 };
 

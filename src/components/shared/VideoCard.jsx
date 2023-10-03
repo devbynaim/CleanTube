@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { thumb } from "../../assets";
-
+import { setRunningVideo } from "../../features/playlist/playlistSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 const Card = styled.div`
   cursor: pointer;
   display: flex;
@@ -11,7 +13,8 @@ const Card = styled.div`
   border: ${(props) => (props.active ? "2px solid #e41a0e38" : "none")};
   box-shadow: ${(props) =>
     props.active ? "0px 0px 2px 0px #00000047" : "none"};
-    transition: all .1s;
+  transition: all 0.1s;
+ 
   &:hover {
     border: 2px solid #e41a0e38;
     box-shadow: 0px 0px 2px 0px #00000047;
@@ -36,18 +39,36 @@ const Channel = styled.a`
   color: #8c8585;
 `;
 
-const VideoCard = ({ title, active = false }) => {
+const VideoCard = ({
+  title,
+  active = false,
+  thumbnail,
+  channelTitle,
+  position,
+  playlistId,
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const scrollRef = useRef(null)
+  useEffect(()=>{
+    if(active){
+      setTimeout(()=>{
+        scrollRef.current.scrollIntoView()
+      },500)
+    }
+  },[])
   const playVideo = () => {
-    console.log("playing..........");
+    dispatch(setRunningVideo({ id: playlistId, running: position }));
+    navigate(`/player?list=${playlistId}&running=${position}`);
   };
   return (
-    <Card active={active} onClick={playVideo}>
-      <Thumb src={thumb} />
+    <Card active={active} onClick={playVideo} ref={scrollRef}>
+      <Thumb src={thumbnail.url} />
       <Content>
         <Title href="#">{`${
           title ? title : "Full-stack Army Intro new video by naim......"
         }`}</Title>
-        <Channel href="#">Stack Learner</Channel>
+        <Channel href="#">{channelTitle}</Channel>
       </Content>
     </Card>
   );

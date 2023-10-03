@@ -15,6 +15,7 @@ const usePlaylist = () => {
         description,
         isFavorite,
         playlistId,
+        running
       } = list;
       return {
         title,
@@ -24,13 +25,18 @@ const usePlaylist = () => {
         description,
         isFavorite,
         playlistId,
+        running
       };
     });
     return playlists;
   }
   const favorites = getFavoritePlaylist()
   const recents = getRecentPlaylist()
-
+  
+  function getVideos (playlistId){
+    const {channelTitle,items} = state.data[playlistId]
+    return {channelTitle,items}
+  }
   function getFavoritePlaylist() {
     return playlists.filter((list) => list.isFavorite);
   }
@@ -41,7 +47,7 @@ const usePlaylist = () => {
     })
   }
 
-  return {playlists,favorites,recents,error,loading}
+  return {playlists,favorites,recents,error,loading,getVideos}
 };
 
 export default usePlaylist;

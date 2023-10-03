@@ -31,7 +31,7 @@ const playlistSlice = createSlice({
       state.data[payload.id].isFavorite = false;
     },
     setRunningVideo: (state, { payload }) => {
-      state.data[payload.id] = payload.running;
+      state.data[payload.id].running = payload.running;
     },
   },
   extraReducers: (builder) => {
@@ -50,6 +50,6 @@ const playlistSlice = createSlice({
   },
 });
 
-export const { deletePlaylist, addToFavorite, removeFromFavorite } =
+export const { deletePlaylist, addToFavorite, removeFromFavorite,setRunningVideo } =
   playlistSlice.actions;
 export default playlistSlice.reducer;
