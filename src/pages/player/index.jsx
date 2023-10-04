@@ -35,8 +35,7 @@ const VideoContainer = styled.div`
   width: 97%;
   margin: auto;
   margin-top: 10px;
-  /* background-color: tomato; */
-  height: 700px;
+height: 90vh;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -44,7 +43,7 @@ const VideoContainer = styled.div`
 
 const RightSide = styled.div`
   min-width: 300px;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -78,6 +77,7 @@ const ActionBtn = styled.button`
 const Description = styled.p`
   display: block;
   font-size: 14px;
+  overflow: auto;
 `;
 const dummySkeleton = new Array(7).fill("skeleton");
 
@@ -98,8 +98,6 @@ const Player = () => {
   }, [running]);
 
   const opts = {
-    height: "40vh",
-    width: "100%",
     playerVars: {
       autoplay: 0,
     },

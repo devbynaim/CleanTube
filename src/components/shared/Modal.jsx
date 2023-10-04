@@ -78,9 +78,8 @@ const Modal = ({ closeModal }) => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState("");
   const [submit, setSubmit] = useState(false);
-
   useEffect(() => {
-    if (!error.message && !loading && submit) {
+    if (error!=null && !error.message && !loading && submit) {
       closeModal();
     }
   }, [error, loading]);
@@ -93,7 +92,9 @@ const Modal = ({ closeModal }) => {
     let listId;
     try {
       listId = new URL(url).searchParams.get("list");
-    } catch (e) {}
+    } catch (e) {
+      listId = url
+    }
     dispatch(addPlaylist({ id: listId }));
     setSubmit(true);
   };
@@ -110,19 +111,19 @@ const Modal = ({ closeModal }) => {
           </CloseButtonWrapper>
           <ModalContainer>
             <PlaylistInput
-              err={error.message}
+              err={error?error.message:''}
               placeholder="Enter Playlist URL Or ID"
               value={url}
               onChange={handleInputUrl}
             />
 
-            {error.message && (
+            {error?error.message && (
               <ErrorLebel>{`${
                 error.message == "exist"
                   ? "playlist already exist"
                   : "Invalid url or playlist id"
               }`}</ErrorLebel>
-            )}
+            ):''}
             <AddPlaylistButton onClick={handleAddPlaylist}>
               Add
             </AddPlaylistButton>

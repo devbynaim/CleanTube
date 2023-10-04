@@ -66,15 +66,13 @@ const Home = () => {
   const { playlists, recents, favorites, loading } = usePlaylist();
   const [isFavorite, setIsFavorite] = useState(false);
   const recent = recents[0];
+
   const dispatch = useDispatch();
   const handelToggle = (isFev) => {
     setIsFavorite(isFev);
   };
   useEffect(() => {
-    dispatch(addPlaylist({ id: "PL_XxuZqN0xVD911duktCZ3FXJfz9k8AwW" }));
-    dispatch(addPlaylist({ id: "PL_XxuZqN0xVDgr7KreI5PaVZuG8Sx3L2c" }));
-    dispatch(addPlaylist({ id: "PL_XxuZqN0xVBfji5SwKd-CQijtdmcUTMU" }));
-    dispatch(addPlaylist({ id: "PL9RcWoqXmzaKWxaNoDhW4O1kA0hK9AYys" }));
+    // dispatch(addPlaylist({ id: "PL_XxuZqN0xVD911duktCZ3FXJfz9k8AwW" }));
   }, []);
   return (
     <HomeWrapper>
@@ -90,6 +88,7 @@ const Home = () => {
               title={recent.title}
               thumbnail={recent.thumbnail}
               playlistId={recent.playlistId}
+              position={recent.running}
             />
           ) : (
             <Label>No recent playlists</Label>

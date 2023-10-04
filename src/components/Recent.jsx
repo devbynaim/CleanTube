@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FaPlay } from "react-icons/fa";
+import {useNavigate} from "react-router-dom"
 
 const RecentCard = styled.div`
   width: 100%;
@@ -101,10 +102,12 @@ const Recent = ({
   channelTitle,
   description,
   playlistId,
+  position
   
 }) => {
+  const navigate = useNavigate()
   const handelPlayer = () => {
-    console.log("Go Player page");
+    navigate(`/player?list=${playlistId}&running=${position}`)
   };
   return (
     <RecentCard>
@@ -130,8 +133,8 @@ const Recent = ({
                 href={`https://www.youtube.com/channel/${channelId}`}
                 target="_blank"
               >
-                {`${channelTitle.substring(0, 15)} ${
-                  channelTitle.length > 15 ? "...." : ""
+                {`${channelTitle.substring(0, 11)} ${
+                  channelTitle.length > 11 ? "...." : ""
                 }`}{" "}
               </ChannelLink>
             </ChannelDiv>
