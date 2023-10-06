@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {useNavigate } from "react-router-dom"
 import {
   addToFavorite,
@@ -9,6 +9,7 @@ import {
   removeFromFavorite,
 } from "../../features/playlist/playlistSlice";
 import { addToRecent } from "../../features/recents/recentSlice";
+import { setStateToLocal } from "../../utils/localstroge";
 
 const Card = styled.div`
   min-width: 165px;
@@ -93,6 +94,7 @@ const PlaylistCard = ({
   all,
   running
 }) => {
+  const recentPlaylists = useSelector((state) => state.recents.items);
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const handelFavAction = () => {
@@ -108,6 +110,9 @@ const PlaylistCard = ({
   const handelPlayer = () => {
     navigate(`player?list=${playlistId}&running=${running}`)
     dispatch(addToRecent({id:playlistId}))
+    let tmp = [...recentPlaylists]
+    tmp.unshift(playlistId)
+    setStateToLocal(tmp, "recent");
   };
 
   return (

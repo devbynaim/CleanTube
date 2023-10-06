@@ -8,7 +8,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 84px;
+  min-height: 100px;
   background-color: white;
   border: ${(props) => (props.active ? "2px solid #e41a0e38" : "none")};
   box-shadow: ${(props) =>
@@ -49,20 +49,12 @@ const VideoCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const scrollRef = useRef(null)
-  useEffect(()=>{
-    if(active){
-      setTimeout(()=>{
-        scrollRef.current.scrollIntoView()
-      },500)
-    }
-  },[])
   const playVideo = () => {
     dispatch(setRunningVideo({ id: playlistId, running: position }));
     navigate(`/player?list=${playlistId}&running=${position}`);
   };
   return (
-    <Card active={active} onClick={playVideo} ref={scrollRef}>
+    <Card active={active} onClick={playVideo}>
       <Thumb src={thumbnail.url} />
       <Content>
         <Title href="#">{`${

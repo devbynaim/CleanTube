@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getPlaylists from "../../api";
+import { getStateFromLocal } from "../../utils/localstroge";
 
 const initialState = {
   data: {},
@@ -33,6 +34,12 @@ const playlistSlice = createSlice({
     setRunningVideo: (state, { payload }) => {
       state.data[payload.id].running = payload.running;
     },
+    cacheGet:((state)=>{
+      const localState = JSON.parse(getStateFromLocal("playlist"))
+      if(localState){
+        state.data = localState.data
+      }
+    })
   },
   extraReducers: (builder) => {
     builder.addCase(addPlaylist.pending, (state) => {
@@ -50,6 +57,6 @@ const playlistSlice = createSlice({
   },
 });
 
-export const { deletePlaylist, addToFavorite, removeFromFavorite,setRunningVideo } =
+export const { deletePlaylist, addToFavorite, removeFromFavorite,setRunningVideo,cacheGet } =
   playlistSlice.actions;
 export default playlistSlice.reducer;

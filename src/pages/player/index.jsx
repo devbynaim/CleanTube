@@ -6,7 +6,8 @@ import VideoCard from "../../components/shared/VideoCard";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import usePlaylist from "../../hooks/usePlaylist";
-
+import Note from "../../components/Note";
+import PlayerSkeleton from "./PlayerSkeleton";
 
 const HomeWrapper = styled.div`
   flex-direction: column;
@@ -21,28 +22,56 @@ const MainWrapper = styled.div`
   width: 100%;
   display: flex;
   gap: 5px;
-  min-height: 100vh;
   overflow: hidden;
   margin: 15px 0;
   background-color: white;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+  }
 `;
 const LeftSide = styled.div`
   width: 100%;
   overflow: hidden;
 `;
 
+const VideoPlayerContainer = styled.div`
+  max-height: 489px;
+  height: 36vw;
+  width: 100%;
+  overflow: hidden;
+
+  @media screen and (max-width: 1250px) {
+    height: 35vw;
+  }
+  @media screen and (max-width: 1152px) {
+    height: 34vw;
+  }
+  @media screen and (max-width: 1052px) {
+    height: 33vw;
+  }
+  @media screen and (max-width: 964px) {
+    height: 32vw;
+  }
+  @media screen and (max-width: 880px) {
+    height: 31vw;
+  }
+  @media screen and (max-width: 850px) {
+    height: 54vw;
+  }
+  @media screen and (max-width: 702px) {
+    height: 55vw;
+  }
+`;
 const VideoContainer = styled.div`
   width: 97%;
   margin: auto;
   margin-top: 10px;
-height: 90vh;
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
 const RightSide = styled.div`
-  min-width: 300px;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -79,23 +108,23 @@ const Description = styled.p`
   font-size: 14px;
   overflow: auto;
 `;
-const dummySkeleton = new Array(7).fill("skeleton");
 
 const Player = () => {
   const [isNote, setIsNote] = useState(false);
+  const [isShowMore, setIshowMore] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const location = useLocation();
   const params = new URL(`https://www.youtube.com/${location.search}`)
     .searchParams;
   const playlistId = params.get("list");
   const running = params.get("running");
-  const { getVideos } = usePlaylist();
+  const { getVideos, playlists } = usePlaylist();
   const { channelTitle, items } = getVideos(playlistId);
   const [runningVideo, setRuningVideo] = useState();
 
-
   useEffect(() => {
     setRuningVideo(items[running]);
-  }, [running]);
+  }, [running, playlists]);
 
   const opts = {
     playerVars: {
@@ -106,6 +135,13 @@ const Player = () => {
   const toggle = (action) => {
     setIsNote(action);
   };
+
+  const onVideoReady = (event) => {
+    setIsVideoLoaded(true);
+  };
+  const handelShowMore = (isShow) => {
+    setIshowMore(isShow);
+  };
   return (
     <HomeWrapper>
       <Header />
@@ -113,7 +149,16 @@ const Player = () => {
         <MainWrapper>
           <LeftSide>
             {runningVideo && (
-              <YouTube videoId={runningVideo.videoId} opts={opts} />
+              <VideoPlayerContainer>
+                <YouTube
+                  videoId={runningVideo.videoId}
+                  opts={opts}
+                  style={{ width: "100%", height: "100%" }}
+                  loading="lazy"
+                  onReady={onVideoReady}
+                />
+                {!isVideoLoaded && <PlayerSkeleton />}
+              </VideoPlayerContainer>
             )}
             <VideoContainer>
               <Title>{runningVideo && runningVideo.title}</Title>
@@ -127,13 +172,35 @@ const Player = () => {
               </ActionContainer>
               {!isNote && (
                 <Description>
-                  {runningVideo && runningVideo.description}
+                  {!isShowMore ? (
+                    <div>
+                      {runningVideo &&
+                        runningVideo.description.substring(1, 100)}
+                      <button
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => handelShowMore(true)}
+                      >
+                        Show more
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      {runningVideo && runningVideo.description}
+                      <button
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => handelShowMore(false)}
+                      >
+                        hide
+                      </button>
+                    </div>
+                  )}
                 </Description>
               )}
+              {isNote && <Note />}
             </VideoContainer>
           </LeftSide>
           <RightSide>
-            {items.map(({ thumbnail, title, videoId,position }, index) => {
+            {items.map(({ thumbnail, title, videoId, position }, index) => {
               return (
                 <VideoCard
                   thumbnail={thumbnail}
@@ -143,7 +210,6 @@ const Player = () => {
                   key={videoId}
                   position={position}
                   playlistId={playlistId}
-                  
                 />
               );
             })}

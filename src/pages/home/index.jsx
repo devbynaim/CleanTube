@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import PlaylistCard from "../../components/shared/PlaylistCard";
-import { useDispatch } from "react-redux";
-import { addPlaylist } from "../../features/playlist/playlistSlice";
 import usePlaylist from "../../hooks/usePlaylist";
 import Recent from "../../components/recent";
 import styled from "styled-components";
@@ -67,13 +65,9 @@ const Home = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const recent = recents[0];
 
-  const dispatch = useDispatch();
   const handelToggle = (isFev) => {
     setIsFavorite(isFev);
   };
-  useEffect(() => {
-    // dispatch(addPlaylist({ id: "PL_XxuZqN0xVD911duktCZ3FXJfz9k8AwW" }));
-  }, []);
   return (
     <HomeWrapper>
       <Header />

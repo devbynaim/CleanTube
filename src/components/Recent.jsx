@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom"
 
 const RecentCard = styled.div`
   width: 100%;
-  height: 245px;
+  height: 285px;
   background-color: var(--secondary-color);
   margin-top: 15px;
   display: flex;
@@ -13,9 +13,8 @@ const RecentCard = styled.div`
   box-shadow: 0px 0px 3px rgba(255, 0, 0, 0.3);
 `;
 const RecentCardLeft = styled.div`
-  width: 100%;
   height: auto;
-  width: 100%;
+  width: 65%;
   height: auto;
   position: relative;
   overflow: hidden;
