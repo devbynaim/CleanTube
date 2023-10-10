@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { FaPlay } from "react-icons/fa";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const RecentCard = styled.div`
   width: 100%;
-  height: 285px;
+  height: 242px;
   background-color: var(--secondary-color);
   margin-top: 15px;
   display: flex;
@@ -14,24 +14,25 @@ const RecentCard = styled.div`
 `;
 const RecentCardLeft = styled.div`
   height: auto;
-  width: 65%;
+  width: 55%;
   height: auto;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 const RecentThumb = styled.img`
-  width: 513px;
-  height: fit-content;
+  height: 100%;
   cursor: pointer;
   position: absolute;
-  top: -50px;
+  /* top: -50px; */
 `;
 const RecentCardRight = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
+  background: #fffffff0;
 `;
 const RightSideContainer = styled.div`
   display: flex;
@@ -101,17 +102,16 @@ const Recent = ({
   channelTitle,
   description,
   playlistId,
-  position
-  
+  position,
 }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handelPlayer = () => {
-    navigate(`/player?list=${playlistId}&running=${position}`)
+    navigate(`/player?list=${playlistId}&running=${position}`);
   };
   return (
     <RecentCard>
       <RecentCardLeft>
-        <RecentThumb src={thumbnail.high.url} onClick={handelPlayer} />
+        <RecentThumb src={thumbnail.medium.url} onClick={handelPlayer} />
       </RecentCardLeft>
       <RecentCardRight>
         <RightSideContainer>

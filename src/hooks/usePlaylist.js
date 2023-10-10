@@ -15,7 +15,6 @@ const usePlaylist = () => {
   useEffect(() => {
     dispatch(cacheGet());
     dispatch(cacheGetRecent())
-    console.log("accc");
   }, []);
 
   useEffect(() => {

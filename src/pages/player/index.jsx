@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import usePlaylist from "../../hooks/usePlaylist";
 import Note from "../../components/Note";
 import PlayerSkeleton from "./PlayerSkeleton";
+import { formatTime } from "../../utils/formatTime";
 
 const HomeWrapper = styled.div`
   flex-direction: column;
@@ -16,7 +17,7 @@ const HomeWrapper = styled.div`
 `;
 
 const Main = styled.main`
-  /* min-height:72vh; */
+  max-width: 1420px;
 `;
 const MainWrapper = styled.div`
   width: 100%;
@@ -35,31 +36,34 @@ const LeftSide = styled.div`
 `;
 
 const VideoPlayerContainer = styled.div`
-  max-height: 489px;
-  height: 36vw;
+  max-height: 560px;
+  height: 35vw;
   width: 100%;
   overflow: hidden;
 
-  @media screen and (max-width: 1250px) {
-    height: 35vw;
+  /* @media screen and (max-width: 1250px) {
+    height: 34vw;
+  } */
+  @media screen and (max-width: 1425px) {
+    height: 34vw;
   }
   @media screen and (max-width: 1152px) {
     height: 34vw;
   }
-  @media screen and (max-width: 1052px) {
+  @media screen and (max-width: 1066px) {
     height: 33vw;
   }
-  @media screen and (max-width: 964px) {
+  @media screen and (max-width: 980px) {
     height: 32vw;
   }
   @media screen and (max-width: 880px) {
-    height: 31vw;
+    height: 30vw;
   }
   @media screen and (max-width: 850px) {
-    height: 54vw;
+    height: 55vw;
   }
   @media screen and (max-width: 702px) {
-    height: 55vw;
+    height: 56vw;
   }
 `;
 const VideoContainer = styled.div`
@@ -113,6 +117,7 @@ const Player = () => {
   const [isNote, setIsNote] = useState(false);
   const [isShowMore, setIshowMore] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoTime,setVideoTime] = useState(0)
   const location = useLocation();
   const params = new URL(`https://www.youtube.com/${location.search}`)
     .searchParams;
@@ -142,6 +147,10 @@ const Player = () => {
   const handelShowMore = (isShow) => {
     setIshowMore(isShow);
   };
+
+  const handelVideoTimeLine = (e)=>{
+    setVideoTime(formatTime(e.target.getCurrentTime()))
+  }
   return (
     <HomeWrapper>
       <Header />
@@ -156,6 +165,7 @@ const Player = () => {
                   style={{ width: "100%", height: "100%" }}
                   loading="lazy"
                   onReady={onVideoReady}
+                  onStateChange= {handelVideoTimeLine}
                 />
                 {!isVideoLoaded && <PlayerSkeleton />}
               </VideoPlayerContainer>
@@ -196,7 +206,7 @@ const Player = () => {
                   )}
                 </Description>
               )}
-              {isNote && <Note />}
+              {isNote && <>{running&&<Note videoId={runningVideo.videoId} timeline={videoTime}/>}</>}
             </VideoContainer>
           </LeftSide>
           <RightSide>

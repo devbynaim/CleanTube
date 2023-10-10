@@ -6,13 +6,13 @@ const noteSlice = createSlice({
     notes: {},
   },
   reducers: {
-    addNote: (state, { payload: { videId, timeline, note } }) => {
+    addNote: (state, { payload: { videoId, timeline, note } }) => {
       const myNote = { noteId: nanoid(5), timeline, note };
-      if (!state.notes[videId]) {
-        state.notes[videId] = [myNote];
+      if (!state.notes[videoId]) {
+        state.notes[videoId] = [myNote];
         return;
       }
-      state.notes[videId].push(myNote);
+      state.notes[videoId].push(myNote);
     },
 
     updateNote: (state, { payload: { videoId, noteId, note } }) => {
@@ -26,8 +26,8 @@ const noteSlice = createSlice({
         }
       }
     },
-    deleteNote: (state, { payload: { videId, noteId } }) => {
-      state.notes[videId] = state.notes[videId].filter(
+    deleteNote: (state, { payload: { videoId, noteId } }) => {
+      state.notes[videoId] = state.notes[videoId].filter(
         (note) => note.noteId != noteId
       );
     },

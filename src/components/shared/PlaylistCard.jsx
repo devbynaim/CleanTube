@@ -13,11 +13,12 @@ import { setStateToLocal } from "../../utils/localstroge";
 
 const Card = styled.div`
   min-width: 165px;
-  height: 340px;
+  /* height: 340px; */
   background-color: var(--secondary-color);
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0px 0px 3px rgba(255, 0, 0, 0.3);
+
 `;
 
 const Thumb = styled.img`

@@ -55,7 +55,7 @@ const Header = () => {
       {isModalOpen && <Modal closeModal={closeModal} />}
       <div className="container">
         <MenuContainer>
-          <Link to={"/"}>
+          <Link to={"/"} style={{color:"black"}}>
             <LogoContainer>
               <LogoImage src={logoImg} alt="cleanTube Logo" />
               <span>cleanTube</span>

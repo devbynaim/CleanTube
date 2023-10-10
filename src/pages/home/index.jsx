@@ -8,7 +8,6 @@ import styled from "styled-components";
 import HomeSkeleton from "./HomeSkeleton";
 import shortid from "shortid";
 
-
 const HomeWrapper = styled.div`
   flex-direction: column;
   display: flex;
@@ -42,12 +41,15 @@ const PlaylistConatiner = styled.div`
   width: 100%;
   margin: 15px 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 240px));
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 20px;
-  @media screen and (max-width: 538px) {
+  @media screen and (max-width: 1159px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media screen and (max-width: 873px) {
     grid-template-columns: 1fr 1fr;
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 587px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -57,8 +59,7 @@ const Label = styled.label`
   margin-top: 15px;
 `;
 
-
-const dummySkeleton = new Array(7).fill("skeleton")
+const dummySkeleton = new Array(7).fill("skeleton");
 
 const Home = () => {
   const { playlists, recents, favorites, loading } = usePlaylist();
@@ -72,7 +73,6 @@ const Home = () => {
     <HomeWrapper>
       <Header />
       <Main>
-        
         <MainContainer className="container">
           {recent ? (
             <Recent
@@ -101,7 +101,7 @@ const Home = () => {
               Favorites
             </Btn>
           </ToggleBar>
-        
+
           {isFavorite && (
             <PlaylistConatiner>
               {favorites.length ? (
@@ -114,7 +114,7 @@ const Home = () => {
                     description,
                     playlistId,
                     isFavorite,
-                    running
+                    running,
                   }) => {
                     return (
                       <PlaylistCard
@@ -137,43 +137,49 @@ const Home = () => {
               )}
             </PlaylistConatiner>
           )}
-          {!loading?!isFavorite && (
+          {!loading ? (
+            !isFavorite && (
+              <PlaylistConatiner>
+                {playlists.length ? (
+                  playlists.map(
+                    ({
+                      title,
+                      channelId,
+                      channelTitle,
+                      thumbnail,
+                      description,
+                      playlistId,
+                      isFavorite,
+                      running,
+                    }) => {
+                      return (
+                        <PlaylistCard
+                          key={playlistId}
+                          channelId={channelId}
+                          channelTitle={channelTitle}
+                          description={description}
+                          title={title}
+                          thumbnail={thumbnail}
+                          playlistId={playlistId}
+                          isFavorite={isFavorite}
+                          all={true}
+                          running={running}
+                        />
+                      );
+                    }
+                  )
+                ) : (
+                  <Label>No playlists found</Label>
+                )}
+              </PlaylistConatiner>
+            )
+          ) : (
             <PlaylistConatiner>
-              {playlists.length ? (
-                playlists.map(
-                  ({
-                    title,
-                    channelId,
-                    channelTitle,
-                    thumbnail,
-                    description,
-                    playlistId,
-                    isFavorite,
-                    running
-                  }) => {
-                    return (
-                      <PlaylistCard
-                        key={playlistId}
-                        channelId={channelId}
-                        channelTitle={channelTitle}
-                        description={description}
-                        title={title}
-                        thumbnail={thumbnail}
-                        playlistId={playlistId}
-                        isFavorite={isFavorite}
-                        all={true}
-                        running={running}
-                      />
-                    );
-                  }
-                )
-              ) : (
-                <Label>No playlists found</Label>
-              )}
+              {dummySkeleton.map(() => (
+                <HomeSkeleton key={shortid.generate()} />
+              ))}
             </PlaylistConatiner>
-          ):  <PlaylistConatiner>
-          {dummySkeleton.map(()=><HomeSkeleton key={shortid.generate()} />)}
-          </PlaylistConatiner>}
+          )}
         </MainContainer>
       </Main>
       <Footer />
